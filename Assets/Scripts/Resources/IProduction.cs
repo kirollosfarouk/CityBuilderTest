@@ -1,4 +1,6 @@
-﻿namespace Resources
+﻿using Managers;
+
+namespace Resources
 {
     public interface IProduction
     {
@@ -47,7 +49,9 @@
 
             if (_currentProductionTime > ProductionTime)
             {
-
+                GameManager.Instant.ResourceManager.UpdateResource(ProductionResource,ProductionQuantity);
+                _currentProductionTime = 0;
+                CurrentProductionStates = ProductionStates.Idle;
             }
         }
 
