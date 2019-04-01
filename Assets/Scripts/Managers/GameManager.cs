@@ -7,11 +7,13 @@ namespace Managers
 {
     public class GameManager : MonoBehaviour
     {
-        private List<Building> _buildings;
-        private List<IProduction> _onGoingProductions;
         public static GameManager Instant;
 
+        private List<Building> _buildings;
+
         public ResourceManager ResourceManager;
+
+        public ProductionManager ProductionManager;
 
         // Start is called before the first frame update
         void Start()
@@ -29,15 +31,8 @@ namespace Managers
         // Update is called once per frame
         void Update()
         {
-            UpdateProductionStates();
+            ProductionManager.UpdateProductionStates();
         }
 
-        private void UpdateProductionStates()
-        {
-            foreach (var production in _onGoingProductions)
-            {
-                production.UpdateProduction(Time.deltaTime);
-            }
-        }
     }
 }
