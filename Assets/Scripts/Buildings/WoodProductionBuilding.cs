@@ -1,18 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
+using Buildings;
+using Resources;
 
-public class WoodProductionBuilding : MonoBehaviour
+namespace Buildings
 {
-    // Start is called before the first frame update
-    void Start()
+    public class WoodProductionBuilding : Building
     {
-        
-    }
+        public WoodProductionBuilding()
+        {
+            BuildingName = "Wood Production";
+            CurrentBuildingState = BuildingStates.Operational;
+            BuildingCost = new Dictionary<Resource, float>()
+            {
+                {Resource.Gold,150}
+            };
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+            ProductionType = new ManualProduction( 1, 50, Resource.Wood );
+        }
     }
 }

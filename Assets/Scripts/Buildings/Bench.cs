@@ -1,18 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
+using Buildings;
+using Resources;
 
-public class Bench : MonoBehaviour
+namespace Assets.Scripts.Buildings
 {
-    // Start is called before the first frame update
-    void Start()
+    public class Bench : Building
     {
-        
-    }
+        public Bench()
+        {
+            BuildingName = "Bench";
+            CurrentBuildingState = BuildingStates.Operational;
+            BuildingCost = new Dictionary<Resource, float>()
+            {
+                {Resource.Gold,150},
+                {Resource.Steel,50 }
+            };
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+            ProductionType = new Decoration();
+        }
     }
 }

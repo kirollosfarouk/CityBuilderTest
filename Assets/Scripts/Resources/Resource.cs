@@ -24,9 +24,14 @@ namespace Resources
 
     public class ResourceManager:IResourceTracker
     {
-        public Dictionary<Resource, float> AvailableResources;
+        public Dictionary<Resource, float> AvailableResources = new Dictionary<Resource, float>()
+        {
+            {Resource.Gold, 200 },
+            {Resource.Wood, 200 },
+            {Resource.Steel, 200 },
+        };
 
-        public List<IResourceObserver> ResourceObservers;
+        public List<IResourceObserver> ResourceObservers = new List<IResourceObserver>();
 
         public void Register(IResourceObserver observer)
         {
@@ -46,10 +51,53 @@ namespace Resources
             }
         }
 
-        public void UpdateResource(Resource resourceType, float resourceAddedValue)
+        public void NotifyObservers()
+        {
+            foreach (Resource source in (Resource[])Enum.GetValues(typeof(Resource)))
+            {
+                NotifyObservers(source);
+            }
+        }
+
+        public void IncreaseResource(Resource resourceType, float resourceAddedValue)
         {
             AvailableResources[resourceType] += resourceAddedValue;
             NotifyObservers(resourceType);
+        }
+
+        public void IncreaseResource( Dictionary<Resource, float> cost )
+        {
+            foreach( var resource in cost )
+            {
+                IncreaseResource( resource.Key,resource.Value );
+            }
+        }
+
+        public void DecreaseResource(Resource resourceType, float resourceAddedValue)
+        {
+            AvailableResources[resourceType] -= resourceAddedValue;
+            NotifyObservers(resourceType);
+        }
+
+        public void DecreaseResource(Dictionary<Resource, float> cost)
+        {
+            foreach (var resource in cost)
+            {
+                DecreaseResource(resource.Key, resource.Value);
+            }
+        }
+
+        public bool CanAfford( Dictionary<Resource, float> cost )
+        {
+            foreach( var resource in cost )
+            {
+                if( resource.Value > AvailableResources[ resource.Key ] )
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

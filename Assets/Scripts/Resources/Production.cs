@@ -6,6 +6,12 @@ namespace Resources
 {
     public interface IProduction
     {
+        float ProductionTime { get; set; }
+        float ProductionQuantity { get; set; }
+        Resource ProductionResource { get; set; }
+        ProductionStates CurrentProductionStates { get; set; }
+        float CurrentProductionTime { get; set; }
+        float ProductionProgress { get; }
         void StartProduction();
         void UpdateProduction(float deltaTime);
     }
@@ -18,18 +24,17 @@ namespace Resources
 
     public class AutomaticProduction : IProduction
     {
-        public float ProductionTime;
-        public float ProductionQuantity;
-        public Resource ProductionResource;
-        public ProductionStates CurrentProductionStates;
-        private float _currentProductionTime;
-
-        public float ProductionProgress
+        public float ProductionTime { get; set; }
+        public float ProductionQuantity { get; set; }
+        public Resource ProductionResource { get; set; }
+        public ProductionStates CurrentProductionStates { get; set; }
+        public float CurrentProductionTime { get; set; }
+        float IProduction.ProductionProgress
         {
             get
             {
-               return _currentProductionTime / ProductionTime;
-            }
+                return CurrentProductionTime / ProductionTime;
+            } 
         }
 
         public AutomaticProduction(float productionTime, float productionQuantity, Resource productionResource)
@@ -37,24 +42,24 @@ namespace Resources
             ProductionTime = productionTime;
             ProductionQuantity = productionQuantity;
             ProductionResource = productionResource;
-            CurrentProductionStates = ProductionStates.Idle;
+            CurrentProductionStates = ProductionStates.Production;
         }
+
+      
 
         public void StartProduction()
         {
-            _currentProductionTime = 0;
-
+            CurrentProductionStates = 0;
         }
 
         public void UpdateProduction(float deltaTime)
         {
-            _currentProductionTime += deltaTime;
+            CurrentProductionTime += deltaTime;
 
-            if (_currentProductionTime > ProductionTime)
+            if (CurrentProductionTime > ProductionTime)
             {
-                GameManager.Instant.ResourceManager.UpdateResource(ProductionResource,ProductionQuantity);
-                _currentProductionTime = 0;
-                CurrentProductionStates = ProductionStates.Idle;
+                GameManager.Instance.ResourceManager.IncreaseResource(ProductionResource,ProductionQuantity);
+                CurrentProductionTime = 0;
             }
         }
 
@@ -62,27 +67,78 @@ namespace Resources
 
     public class ManualProduction : IProduction
     {
+
+        public float ProductionTime { get; set; }
+        public float ProductionQuantity { get; set; }
+        public Resource ProductionResource { get; set; }
+        public ProductionStates CurrentProductionStates { get; set; }
+        public float CurrentProductionTime { get; set; }
+        public float ProductionProgress
+        {
+            get
+            {
+                return CurrentProductionTime / ProductionTime;
+            }
+        }
+
+        public ManualProduction(float productionTime, float productionQuantity, Resource productionResource)
+        {
+            ProductionTime = productionTime;
+            ProductionQuantity = productionQuantity;
+            ProductionResource = productionResource;
+            CurrentProductionStates = ProductionStates.Idle;
+        }
+
+      
+
         public void StartProduction()
         {
-            throw new System.NotImplementedException();
+            if( CurrentProductionStates == ProductionStates.Production )
+            {
+                return;
+            }
+
+            CurrentProductionStates = ProductionStates.Production;
+            CurrentProductionTime = 0;
+            GameManager.Instance.ProductionManager.AddToProduction(this);
         }
 
         public void UpdateProduction(float deltaTime)
         {
-            throw new System.NotImplementedException();
+            if (CurrentProductionStates == ProductionStates.Idle)
+            {
+                GameManager.Instance.ProductionManager.RemoveFromProduction(this);
+                return;
+            }
+
+            CurrentProductionTime += deltaTime;
+
+            if(CurrentProductionTime >= ProductionTime )
+            {
+                GameManager.Instance.ResourceManager.IncreaseResource( ProductionResource, ProductionQuantity );
+                CurrentProductionStates = ProductionStates.Idle;
+                GameManager.Instance.ProductionManager.RemoveFromProduction( this );
+            }
         }
     }
 
     public class Decoration : IProduction
     {
+        public float ProductionTime { get; set; }
+        public float ProductionQuantity { get; set; }
+        public Resource ProductionResource { get; set; }
+        public ProductionStates CurrentProductionStates { get; set; }
+        public float CurrentProductionTime { get; set; }
+        public float ProductionProgress { get; set; }
+
         public void StartProduction()
         {
-            throw new System.NotImplementedException();
+           Debug.Log( "i'm a dummy object i do nothing" );
         }
 
         public void UpdateProduction(float deltaTime)
         {
-            throw new System.NotImplementedException();
+            Debug.Log("i'm a dummy object i do nothing");
         }
     }
 
@@ -92,9 +148,9 @@ namespace Resources
 
         public void UpdateProductionStates()
         {
-            foreach (var production in _onGoingProductions)
+            for( int i = 0; i < _onGoingProductions.Count; i++ )
             {
-                production.UpdateProduction(Time.deltaTime);
+                _onGoingProductions[i].UpdateProduction( Time.deltaTime );
             }
         }
 

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Resources;
+using UnityEngine;
 
 namespace Buildings
 {
@@ -15,6 +16,7 @@ namespace Buildings
             };
 
             ProductionType = new AutomaticProduction(10, 100, Resource.Gold);
+
         }
     }
 }
