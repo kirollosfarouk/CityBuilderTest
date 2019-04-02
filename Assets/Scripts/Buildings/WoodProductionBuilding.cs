@@ -15,7 +15,7 @@ namespace Buildings
                 {Resource.Gold,150}
             };
 
-            ProductionType = new ManualProduction( 1, 50, Resource.Wood );
+            ProductionType = new ManualProduction( 10, 50, Resource.Wood );
         }
     }
 }
