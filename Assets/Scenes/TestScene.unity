@@ -1188,8 +1188,9 @@ GameObject:
   - component: {fileID: 1531067820}
   - component: {fileID: 1531067819}
   - component: {fileID: 1531067818}
+  - component: {fileID: 1531067822}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: GridPlane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1270,6 +1271,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1531067822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1531067817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f11a6b94c8d38684dbd85b21a2323a80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1531196061
 GameObject:
   m_ObjectHideFlags: 0
@@ -1332,7 +1345,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 43.33858
+  orthographic size: 51
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1356,7 +1369,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1531196061}
   m_LocalRotation: {x: 0.30360338, y: 0.25443617, z: -0.08279241, w: 0.9144576}
-  m_LocalPosition: {x: 29.9, y: 45.6, z: -92}
+  m_LocalPosition: {x: 26.6, y: 50, z: -116.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1914,6 +1927,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Building2x2
       objectReference: {fileID: 0}
+    - target: {fileID: 1134808359842559631, guid: 8cb539507e53844abbc6cac81da2fb2a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8cb539507e53844abbc6cac81da2fb2a, type: 3}
 --- !u!1001 &5393388301010098348
@@ -1982,6 +2000,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Bench1x1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5393388301532982471, guid: affe66bd566d942f78badd68c1a973d1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: affe66bd566d942f78badd68c1a973d1, type: 3}
@@ -2052,6 +2075,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Building3x3
       objectReference: {fileID: 0}
+    - target: {fileID: 5544763611581036915, guid: 16515dd91ebb84b3a8f20dc29c23264f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16515dd91ebb84b3a8f20dc29c23264f, type: 3}
 --- !u!1001 &6837885163995541196
@@ -2121,6 +2149,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Building3x2
       objectReference: {fileID: 0}
+    - target: {fileID: 6837885162318440743, guid: add0de247d5e34d7a9fd680d17f7d65a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: add0de247d5e34d7a9fd680d17f7d65a, type: 3}
 --- !u!1001 &7051956561042285497
@@ -2189,6 +2222,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree2x2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7051956560768922039, guid: ea2d4810dcf0148cbbdf9f05d44ddfe4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea2d4810dcf0148cbbdf9f05d44ddfe4, type: 3}
